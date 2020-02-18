@@ -47,6 +47,7 @@ public class MovieFragment extends Fragment {
                 if (films != null){
                     movieAdapter.setData(films);
                     showLoading(false);
+
                 }
             }
         });
@@ -58,6 +59,8 @@ public class MovieFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
 
+
+//        MovieAdapter mv = new MovieAdapter();
         RVMovie = rootView.findViewById(R.id.rv_movie);
         progressBar = rootView.findViewById(R.id.progressBarmovies);
         RVMovie.setHasFixedSize(true);
@@ -66,6 +69,7 @@ public class MovieFragment extends Fragment {
         movieAdapter = new MovieAdapter();
         movieAdapter.notifyDataSetChanged();
         RVMovie.setAdapter(movieAdapter);
+        movieAdapter.setOnItemKlik(new MovieAdapter.onItemKlik()
 
         return rootView;
 
@@ -82,6 +86,8 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
     }
     
     private void showDetail(Film film) {
@@ -97,108 +103,4 @@ public class MovieFragment extends Fragment {
 
         startActivity(i);
     }
-
-//    private class GetMovie extends AsyncTask<Void, Void, Void> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            // Showing progress dialog
-//            pDialog = new ProgressDialog(getActivity());
-//            pDialog.setMessage("Please wait...");
-//            pDialog.setCancelable(false);
-//            pDialog.show();
-//        }
-//
-//        protected Void doInBackground(Void... arg0) {
-//            HttpHandler sh = new HttpHandler();
-//
-//            // Making a request to url and getting response
-//            String jsonStr = sh.makeServiceCall(url);
-//
-//            Log.e(TAG, "Response from url: " + jsonStr);
-//
-//            if (jsonStr != null) {
-//                try {
-//                    JSONObject jsonObj = new JSONObject(jsonStr);
-//
-//                    // Getting JSON Array node
-//                    JSONArray movie = jsonObj.getJSONArray("movie");
-//
-//                    // looping through All Contacts
-//                    for (int i = 0; i < movie.length(); i++) {
-//                        JSONObject c = movie.getJSONObject(i);
-//
-//                        String poster = c.getString("poster");
-//                        String judul = c.getString("judul");
-//                        String tahun = c.getString("tahun");
-//                        String genre = c.getString("genre");
-//                        String detail = c.getString("detail");
-//
-//                        // Phone node is JSON Object
-////                        JSONObject phone = c.getJSONObject("phone");
-////                        String mobile = phone.getString("mobile");
-////                        String home = phone.getString("home");
-////                        String office = phone.getString("office");
-//
-//                        // tmp hash map for single contact
-//                        HashMap<String, String> moovie = new HashMap<>();
-//
-//                        // adding each child node to HashMap key => value
-//                        moovie.put("poster", poster);
-//                        moovie.put("judul", judul);
-//                        moovie.put("tahun", tahun);
-//                        moovie.put("genre", genre);
-//                        moovie.put("detail", detail);
-//
-//                        // adding contact to contact list
-//                        movieList.add(moovie);
-//                    }
-//                } catch (final JSONException e) {
-//                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getContext(),"Json Parsing error: "+ e.getMessage(),
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//                }
-//            } else {
-//                Log.e(TAG, "Couldn't get json from server.");
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-//                });
-//
-//            }
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//            // Dismiss the progress dialog
-//            if (pDialog.isShowing())
-//                pDialog.dismiss();
-//            /**
-//             * Updating parsed JSON data into ListView
-//             * */
-//            ListAdapter adapter = new ListAdapter(
-//                    getActivity(), movieList,
-//                    R.layout.list_film, new String[]{"judul", "tahun", "genre"},
-//                    new int[]{R.id.judul_film, R.id.tahun_film, R.id.genre_film});
-//
-//            RVMovie.setAdapter(adapter);
-//        }
-//
-//
-//    }
-
 }
