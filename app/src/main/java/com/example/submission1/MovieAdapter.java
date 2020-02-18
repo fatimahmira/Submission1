@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private ArrayList<Film> list_tvshow = new ArrayList<>();
-    private ListAdapter.onItemKlik onItemKlik;
+    private onItemKlik onItemKlik;
 
     public void setData(ArrayList<Film> items) {
         list_tvshow.clear();
@@ -23,7 +23,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
-    void setOnItemKlik(ListAdapter.onItemKlik onItemKlik) {
+    void setOnItemKlik(onItemKlik onItemKlik) {
         this.onItemKlik = onItemKlik;
     }
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,20 +26,31 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class TVShowFragment extends Fragment {
-    private static final String EXTRA_FILM = "film" ;
-//    private static final String EXTRA_TAHUN = "" ;
-//    private static final String EXTRA_GENRE = "" ;
-//    private static final String EXTRA_DETAIL = "" ;
 
-    private RecyclerView RVTVShow;
-    private ListAdapter listAdapter;
-
-    private TextView JudulFilm, TahunFilm, GenreFilm, DetailnyaFilm;
-    private ImageView GambarFilm;
+    private MovieAdapter tvshowAdapter;
+    private RecyclerView RVTVSow;
+    private ProgressBar progressBar;
+    private MainViewModelMovie mainViewModel;
     private ArrayList<Film> l = new ArrayList<>();//membuat arraybaru
 
-    public TVShowFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MainViewModelMovie.class);
+        mainViewModel.setTVShow();
+
+        mainViewModel.getTVShow().observe(this, new Observer<ArrayList<Film>>() {
+            @Override
+            public void onChanged(ArrayList<Film> films) {
+                if (films != null){
+                    tvshowAdapter.setData(films);
+                    showLoading(false);
+                    OnItemClickSupport.addTo(RVTVSow).setOnItemClickListener((recyclerView, position, v) ->
+                            showDetail(films.get(position)));
+                }
+            }
+        });
+
     }
 
     @Override
@@ -43,41 +58,43 @@ public class TVShowFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tvshow, container, false);
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int ip = RVTVSow.getChildLayoutPosition(view);
+                Film item = l.get(ip);
+                Toast.makeText(getContext(), item.getJudul(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RVTVSow = rootView.findViewById(R.id.rv_tvshow);
+        progressBar = rootView.findViewById(R.id.progressBartvshow);
+        RVTVSow.setHasFixedSize(true);
+
+        RVTVSow.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, rootView.isInLayout()));
+        tvshowAdapter = new MovieAdapter();
+        tvshowAdapter.notifyDataSetChanged();
+        RVTVSow.setAdapter(tvshowAdapter);
+
         return rootView;
+    }
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RVTVShow = view.findViewById(R.id.recyclerview);
-        RVTVShow.setHasFixedSize(true);
-        RVTVShow.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        JudulFilm = view.findViewById(R.id.judul_film);
-        TahunFilm = view.findViewById(R.id.tahun_film);
-        GenreFilm = view.findViewById(R.id.genre_film);
-        GambarFilm = view.findViewById(R.id.gbr_film);
-        DetailnyaFilm = view.findViewById(R.id.sinopsis_detail);
-
-        l.addAll(DataTVShow.getListData());
-        tampilkanlist(view);
 
     }
-
-    private void tampilkanlist(View view) {
-        ListAdapter adapter = new ListAdapter( l);
-        RVTVShow.setAdapter(adapter);
-        adapter.setOnItemKlik(new ListAdapter.onItemKlik() {
-            @Override
-            public void onItemClicked(Film film) {
-                showDetail(film);
-            }
-        });
-    }
-
     private void showDetail(Film film) {
-        Intent i = new Intent(TVShowFragment.this.getContext(),DetailFilm.class);
+        Intent i = new Intent(TVShowFragment.this.getContext(), DetailFilm.class);
 
         Film film1 = new Film();
         film1.setPoster(film.getPoster());

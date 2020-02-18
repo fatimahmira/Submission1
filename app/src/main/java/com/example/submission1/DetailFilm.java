@@ -45,16 +45,6 @@ public class DetailFilm extends AppCompatActivity {
         tahun.setText(film.getTahun());
         genre.setText(film.getGenre());
         sinopsis.setText(film.getDetail());
-
-//        final Buku book = getIntent().getParcelableExtra(EXTRA_BUKU);
-//
-//        Glide.with(this).load(book.getGambar()).apply(new RequestOptions()).into(gambarbukuu);
-//        judulbukuu.setText(book.getJudul_buku());
-//        tahunbukuu.setText(book.getTahun());
-//        penerbitbukuu.setText("Penerbit : "+book.getPenerbit());
-//        genrebukuu.setText(book.getGenre());
-//        detailbukuu.setText("Detail Buku :\n"+book.getDetail());
-
     }
 
     @Override

@@ -10,9 +10,6 @@ public class Film implements Parcelable {
     private String tahun;
     private String genre;
     private String detail;
-    public static Creator<Film> getCREATOR() {
-        return CREATOR;
-    }
 
     public int getId() {
         return id;
