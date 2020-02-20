@@ -452,9 +452,9 @@
       <window_info anchor="bottom" id="TODO" order="3" sideWeight="0.49924356" weight="0.3277592" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.4977307" weight="0.3277592" />
       <window_info anchor="bottom" id="Terminal" order="5" sideWeight="0.49621785" weight="0.3277592" />
-      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5136157" side_tool="true" visible="true" weight="0.38628763" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.51437217" side_tool="true" visible="true" weight="0.38628763" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4969743" weight="0.32943144" />
-      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.48638427" visible="true" weight="0.38628763" />
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.48562783" visible="true" weight="0.38628763" />
       <window_info active="true" anchor="bottom" id="Find" order="9" visible="true" weight="0.3277592" />
       <window_info anchor="bottom" id="Android Profiler" order="10" show_stripe_button="false" weight="0.32850242" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
