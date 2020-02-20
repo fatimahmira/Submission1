@@ -20,17 +20,18 @@
 
     <TextView
         android:id="@+id/judul_detail"
-        android:layout_width="277dp"
-        android:layout_height="64dp"
+        android:layout_width="252dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="24dp"
         android:text="Judul"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toEndOf="@+id/poster_detail"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/tahun_detail"
@@ -40,22 +41,22 @@
         android:text="Tahun"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toEndOf="@+id/poster_detail"
         app:layout_constraintTop_toBottomOf="@+id/judul_detail"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <TextView
         android:id="@+id/genre_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="269dp"
+        android:layout_height="46dp"
         android:text="Genre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toEndOf="@+id/poster_detail"
         app:layout_constraintTop_toBottomOf="@+id/judul_detail"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <ScrollView
         android:layout_width="wrap_content"
