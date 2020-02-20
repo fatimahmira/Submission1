@@ -44,8 +44,12 @@ public class MovieFragment extends Fragment {
                 if (films != null){
                     movieAdapter.setData(films);
                     showLoading(false);
+<<<<<<< HEAD
+
+=======
         OnItemClickSupport.addTo(RVMovie).setOnItemClickListener((recyclerView, position, v) ->
                 showDetail(films.get(position)));
+>>>>>>> c15ca83516ad798e322e12b0b4a78cf0da67c930
                 }
             }
         });
@@ -65,6 +69,8 @@ public class MovieFragment extends Fragment {
             }
         });
 
+
+//        MovieAdapter mv = new MovieAdapter();
         RVMovie = rootView.findViewById(R.id.rv_movie);
         progressBar = rootView.findViewById(R.id.progressBarmovies);
         RVMovie.setHasFixedSize(true);
@@ -73,6 +79,7 @@ public class MovieFragment extends Fragment {
         movieAdapter = new MovieAdapter();
         movieAdapter.notifyDataSetChanged();
         RVMovie.setAdapter(movieAdapter);
+        movieAdapter.setOnItemKlik(new MovieAdapter.onItemKlik()
 
 
         return rootView;
@@ -90,6 +97,8 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     private void showDetail(Film film) {
@@ -105,4 +114,8 @@ public class MovieFragment extends Fragment {
 
         startActivity(i);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c15ca83516ad798e322e12b0b4a78cf0da67c930
