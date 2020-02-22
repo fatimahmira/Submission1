@@ -1,5 +1,6 @@
 package com.example.submission1;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,10 @@ import java.util.ArrayList;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private ArrayList<Film> list_tvshow = new ArrayList<>();
     private onItemKlik onItemKlik;
+
+    public MovieAdapter() {
+
+    }
 
     public void setData(ArrayList<Film> items) {
         list_tvshow.clear();

@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.submission1.fragment.FavFragment;
+import com.example.submission1.fragment.MovieFragment;
+import com.example.submission1.fragment.TVShowFragment;
+
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     private final Context context;
@@ -20,7 +24,8 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private final int[] TAB_TITLES = new int[]{
             R.string.tab1,
-            R.string.tab2
+            R.string.tab2,
+            R.string.tab3
     };
 
     @Override
@@ -32,6 +37,9 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new TVShowFragment();
+                break;
+            case 2:
+                fragment = new FavFragment();
                 break;
         }
         return fragment;
@@ -45,6 +53,6 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

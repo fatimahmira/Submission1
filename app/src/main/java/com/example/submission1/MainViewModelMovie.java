@@ -22,7 +22,7 @@ public class MainViewModelMovie extends ViewModel {
     private MutableLiveData<ArrayList<Film>> listMovie = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Film>> listTVShow = new MutableLiveData<>();
 
-    void setMovie(){
+    public void setMovie(){
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Film> listItems = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/discover/movie?api_key="+API_KEY+"&language=en-US&page=1";
@@ -62,7 +62,7 @@ public class MainViewModelMovie extends ViewModel {
 
     }
 
-    void setTVShow(){
+    public void setTVShow(){
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Film> listItems = new ArrayList<>();
         String url = "https://api.themoviedb.org/3/discover/tv?api_key="+API_KEY+"&language=en-US&page=1";
@@ -102,11 +102,11 @@ public class MainViewModelMovie extends ViewModel {
 
     }
 
-    LiveData<ArrayList<Film>> getMovie(){
+    public LiveData<ArrayList<Film>> getMovie(){
         return listMovie;
     }
 
-    LiveData<ArrayList<Film>> getTVShow(){
+    public LiveData<ArrayList<Film>> getTVShow(){
         return listTVShow;
     }
 

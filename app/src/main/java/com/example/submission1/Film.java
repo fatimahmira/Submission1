@@ -40,47 +40,56 @@ public class Film implements Parcelable {
         }
     };
 
-    Film() {
+    public Film() {
 
     }
 
-    String getJudul() {
-        return judul;
-    }
-
-    void setJudul(String judul) {
+    public Film(int id, String judul, String poster, String tahun, String genre, String detail) {
+        this.id = id;
         this.judul = judul;
-    }
-
-    String getTahun() {
-        return tahun;
-    }
-
-    void setTahun(String tahun) {
+        this.poster = poster;
         this.tahun = tahun;
-    }
-
-    String getGenre() {
-        return genre;
-    }
-
-    void setGenre(String genre) {
         this.genre = genre;
-    }
-
-    String getDetail() {
-        return detail;
-    }
-
-    void setDetail(String detail) {
         this.detail = detail;
     }
 
-    String getPoster() {
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getTahun() {
+        return tahun;
+    }
+
+    public void setTahun(String tahun) {
+        this.tahun = tahun;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getPoster() {
         return poster;
     }
 
-    void setPoster(String poster) {
+    public void setPoster(String poster) {
         this.poster = poster;
     }
 
