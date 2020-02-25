@@ -16,37 +16,37 @@ import static com.example.submission1.database.DatabaseContract.TABLE_FAV;
 import static com.example.submission1.database.DatabaseContract.TABLE_FAV2;
 
 public class MappingHelper {
-//    private static final String DATABASE_TABLE = TABLE_FAV;
-//    private static final String DATABASE_TABLE2 = TABLE_FAV2;
-//    private static DatabaseHelper dataBaseHelper;
-//    private static MappingHelper INSTANCE;
-//    private static SQLiteDatabase database;
-//
-//    public MappingHelper(Context context) {
-//        dataBaseHelper = new DatabaseHelper(context);
-//    }
-//
-//    public static MappingHelper getInstance(Context context) {
-//        if (INSTANCE == null) {
-//            synchronized (SQLiteOpenHelper.class) {
-//                if (INSTANCE == null) {
-//                    INSTANCE = new MappingHelper(context);
-//                }
-//            }
-//        }
-//        return INSTANCE;
-//    }
-//
-//    public void open() throws SQLException {
-//
-//        database = dataBaseHelper.getWritableDatabase();
-//    }
-//
-//    public void close() {
-//        dataBaseHelper.close();
-//        if (database.isOpen())
-//            database.close();
-//    }
+    private static final String DATABASE_TABLE = TABLE_FAV;
+    private static final String DATABASE_TABLE2 = TABLE_FAV2;
+    private static DatabaseHelper dataBaseHelper;
+    private static MappingHelper INSTANCE;
+    private static SQLiteDatabase database;
+
+    public MappingHelper(Context context) {
+        dataBaseHelper = new DatabaseHelper(context);
+    }
+
+    public static MappingHelper getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (SQLiteOpenHelper.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new MappingHelper(context);
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    public void open() throws SQLException {
+
+        database = dataBaseHelper.getWritableDatabase();
+    }
+
+    public void close() {
+        dataBaseHelper.close();
+        if (database.isOpen())
+            database.close();
+    }
 
     public static ArrayList<Film> mapCursorToArrayList(Cursor moviesCursor) {
         ArrayList<Film> movieList = new ArrayList<>();

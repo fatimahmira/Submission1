@@ -50,6 +50,7 @@ public class FavFragment extends Fragment {
 
         mainViewModelMovie = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MainViewModelMovie.class);
 
+
     }
 
     public FavFragment() {
@@ -60,6 +61,9 @@ public class FavFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvfav = view.findViewById(R.id.rv_fav_movie);
+        if (savedInstanceState != null){
+            bundle = savedInstanceState;
+        }
     }
 
     @Override
@@ -75,41 +79,35 @@ public class FavFragment extends Fragment {
         rvfav.setHasFixedSize(true);
         movieHelper = MovieHelper.getInstance(getContext());
         movieHelper.open();
-        Cursor cursor = movieHelper.queryAll();
-
+//        Cursor cursor = movieHelper.queryAll();
+        movieAdapter = new MovieAdapter(getContext());
         rvfav.setAdapter(movieAdapter);
 
         if (bundle == null){
             listMovies.clear();
-            cursor.moveToFirst();
-            Film film = new Film();
-            if (cursor.getCount() > 0){
-                do {
-                    film.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
-                    film.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(JUDUL)));
-                    film.setTahun(cursor.getString(cursor.getColumnIndexOrThrow(TAHUN)));
-                    film.setDetail(cursor.getString(cursor.getColumnIndexOrThrow(SINOPSIS)));
-                    film.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(GENRE)));
-                    film.setPoster(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
-                    listMovies.add(film);
-                    cursor.moveToNext();
-                } while (!cursor.isAfterLast());
-
-//                if (listMovies != null){
-//                    movieAdapter.setData(listMovies);
-//                } else {
-//                    Toast.makeText(getContext(), "Tidak ada favorit", Toast.LENGTH_SHORT).show();
-//                }
-            } else {
+            listMovies.addAll(movieHelper.getFavMovie());
+//
+                if (listMovies != null){
+                    movieAdapter.setData(listMovies);
+                } else {
+                    Toast.makeText(getContext(), "Tidak ada favorit", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
                 ArrayList<Film> list = bundle.getParcelableArrayList(KEY_MOVIES);
                 if (list != null){
                     movieAdapter.setData(list);
                 }
 
             }
-            cursor.close();
-        }
+
         super.onStart();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(KEY_MOVIES, movieAdapter.getListMovie());
     }
 
     @Override
@@ -117,4 +115,5 @@ public class FavFragment extends Fragment {
         super.onDestroy();
         movieHelper.close();
     }
+
 }

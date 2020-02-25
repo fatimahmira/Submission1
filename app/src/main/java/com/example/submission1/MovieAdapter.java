@@ -18,8 +18,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private ArrayList<Film> list_tvshow = new ArrayList<>();
     private onItemKlik onItemKlik;
 
-    public MovieAdapter() {
+    public MovieAdapter(Context context) {
 
+    }
+
+    public ArrayList<Film> getListMovie() {
+        return list_tvshow;
     }
 
     public void setData(ArrayList<Film> items) {

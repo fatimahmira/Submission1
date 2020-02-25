@@ -18,6 +18,7 @@ public class DatabaseContract {
         public static final class MovieColumns implements BaseColumns {
             // Note table name
             static final String TABLE_NAME = "movie";
+            static final String TABLE_NAME2 = "tvshow";
 
             // Note title
             public static final String JUDUL = "title";

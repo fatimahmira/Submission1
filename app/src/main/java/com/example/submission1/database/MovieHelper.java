@@ -12,10 +12,17 @@ import com.example.submission1.Film;
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.GENRE;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.JUDUL;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.POSTER;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.SINOPSIS;
 import static com.example.submission1.database.DatabaseContract.MovieColumns.TABLE_NAME;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.TABLE_NAME2;
+import static com.example.submission1.database.DatabaseContract.MovieColumns.TAHUN;
 
 public class MovieHelper {
     private static final String DATABASE_TABLE = TABLE_NAME;
+    private static final String DATABASE_TABLE2 = TABLE_NAME2;
     private static DatabaseHelper dataBaseHelper;
     private static MovieHelper INSTANCE;
 
@@ -47,66 +54,114 @@ public class MovieHelper {
             database.close();
     }
 
-    /**
-     * Ambil data dari semua note yang ada di dalam database
-     *
-     * @return cursor hasil query
-     */
-    public Cursor queryAll() {
-//        ArrayList<Film> arrayList = new ArrayList<>();
-        return database.query(DATABASE_TABLE,
+    public ArrayList<Film> getFavMovie() {
+        ArrayList<Film> arrayList = new ArrayList<>();
+        Cursor cursor= database.query(DATABASE_TABLE,
                 null,
                 null,
                 null,
                 null,
                 null,
                 _ID + " DESC");
+        cursor.moveToFirst();
+        Film film = new Film();
+        if (cursor.getCount() > 0) {
+            do {
+                film.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                film.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(JUDUL)));
+                film.setTahun(cursor.getString(cursor.getColumnIndexOrThrow(TAHUN)));
+                film.setDetail(cursor.getString(cursor.getColumnIndexOrThrow(SINOPSIS)));
+                film.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(GENRE)));
+                film.setPoster(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
+                arrayList.add(film);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 
-    /**
-     * Ambil data dari note berdasarakan parameter id
-     *
-     * @param id id note yang dicari
-     * @return cursor hasil query
-     */
-    public Cursor queryById(String id) {
-        return database.query(DATABASE_TABLE, null
-                , _ID + " = ?"
-                , new String[]{id}
-                , null
-                , null
-                , null
-                , null);
+    public boolean isExistMovie(Film movie) {
+        database = dataBaseHelper.getReadableDatabase();
+        String QUERY = "SELECT * FROM " + TABLE_NAME + " WHERE " + _ID + "=" + movie.getId();
+
+        Cursor cursor = database.rawQuery(QUERY, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 
-    /**
-     * Simpan data ke dalam database
-     *
-     * @param values nilai data yang akan di simpan
-     * @return long id dari data yang baru saja di masukkan
-     */
-    public long insert(ContentValues values) {
-        return database.insert(DATABASE_TABLE, null, values);
+    public long insertFavoriteMovie(Film movie) {
+        ContentValues args = new ContentValues();
+        args.put(_ID, movie.getId());
+        args.put(JUDUL, movie.getJudul());
+        args.put(TAHUN, movie.getTahun());
+        args.put(GENRE, movie.getGenre());
+        args.put(SINOPSIS, movie.getDetail());
+        args.put(POSTER, movie.getPoster());
+        return database.insert(DATABASE_TABLE, null, args);
     }
 
-    /**
-     * Update data dalam database
-     *
-     * @param id     data dengan id berapa yang akan di update
-     * @param values nilai data baru
-     * @return int jumlah data yang ter-update
-     */
-    public int update(String id, ContentValues values) {
-        return database.update(DATABASE_TABLE, values, _ID + " = ?", new String[]{id});
+    public int deleteFavoriteMovie (int id) {
+        return database.delete(TABLE_NAME, _ID + " = '" + id + "'", null);
     }
 
-    /**
-     * Delete data dalam database
-     *
-     * @param id data dengan id berapa yang akan di delete
-     * @return int jumlah data yang ter-delete
-     */
-    public int deleteById(String id) {
-        return database.delete(DATABASE_TABLE, _ID + " = ?", new String[]{id});
+    public ArrayList<Film> getFavTV() {
+        ArrayList<Film> arrayList = new ArrayList<>();
+        Cursor cursor= database.query(DATABASE_TABLE2,
+                null,
+                null,
+                null,
+                null,
+                null,
+                _ID + " DESC");
+        cursor.moveToFirst();
+        Film film = new Film();
+        if (cursor.getCount() > 0) {
+            do {
+                film.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                film.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(JUDUL)));
+                film.setTahun(cursor.getString(cursor.getColumnIndexOrThrow(TAHUN)));
+                film.setDetail(cursor.getString(cursor.getColumnIndexOrThrow(SINOPSIS)));
+                film.setGenre(cursor.getString(cursor.getColumnIndexOrThrow(GENRE)));
+                film.setPoster(cursor.getString(cursor.getColumnIndexOrThrow(POSTER)));
+                arrayList.add(film);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
+
+    public boolean isExistTV(Film movie) {
+        database = dataBaseHelper.getReadableDatabase();
+        String QUERY = "SELECT * FROM " + TABLE_NAME2 + " WHERE " + _ID + "=" + movie.getId();
+
+        Cursor cursor = database.rawQuery(QUERY, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    public long insertFavoriteTV(Film movie) {
+        ContentValues args = new ContentValues();
+        args.put(_ID, movie.getId());
+        args.put(JUDUL, movie.getJudul());
+        args.put(TAHUN, movie.getTahun());
+        args.put(GENRE, movie.getGenre());
+        args.put(SINOPSIS, movie.getDetail());
+        args.put(POSTER, movie.getPoster());
+        return database.insert(DATABASE_TABLE2, null, args);
+    }
+
+    public int deleteFavorite(int id) {
+        return database.delete(TABLE_NAME2, _ID + " = '" + id + "'", null);
+    }
+
 }

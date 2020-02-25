@@ -77,7 +77,7 @@ public class TVShowFragment extends Fragment {
         RVTVSow.setHasFixedSize(true);
 
         RVTVSow.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, rootView.isInLayout()));
-        tvshowAdapter = new MovieAdapter();
+        tvshowAdapter = new MovieAdapter(getContext());
         tvshowAdapter.notifyDataSetChanged();
         RVTVSow.setAdapter(tvshowAdapter);
 

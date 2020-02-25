@@ -79,7 +79,7 @@ public class MovieFragment extends Fragment {
         RVMovie.setHasFixedSize(true);
 
         RVMovie.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, rootView.isInLayout()));
-        movieAdapter = new MovieAdapter();
+        movieAdapter = new MovieAdapter(getContext());
         movieAdapter.notifyDataSetChanged();
         RVMovie.setAdapter(movieAdapter);
 
